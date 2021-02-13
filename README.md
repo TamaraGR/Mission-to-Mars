@@ -16,6 +16,6 @@ The purpose of this project is to build a web application that scrapes various w
 
 ## Project Steps 
 
--[x] Scrape High-Resolution Mars Hemisphere Images and Titles
--[x] Update the Web App with Mars Hemisphere Images and Titles
--[x] Add Bootstrap 3 Components
+- [x] Scrape High-Resolution Mars Hemisphere Images and Titles
+- [x] Update the Web App with Mars Hemisphere Images and Titles
+- [x] Add Bootstrap 3 Components
