@@ -3,6 +3,7 @@ from splinter import Browser
 from bs4 import BeautifulSoup as soup
 import pandas as pd
 import datetime as dt
+import time 
 
 
 def scrape_all():
@@ -28,7 +29,7 @@ def scrape_all():
 
 
 def mars_news(browser):
-
+    print("scraping Mars news")
     # Scrape Mars News
     # Visit the mars nasa news site
     url = 'https://mars.nasa.gov/news/'
@@ -56,6 +57,7 @@ def mars_news(browser):
 
 
 def featured_image(browser):
+    print("scraping featured image")
     # Visit URL
     url = 'https://data-class-jpl-space.s3.amazonaws.com/JPL_Space/index.html'
     browser.visit(url)
@@ -82,6 +84,7 @@ def featured_image(browser):
     return img_url
 
 def mars_facts():
+    print("scraping mars facts")
     # Add try/except for error handling
     try:
         # Use 'read_html' to scrape the facts table into a dataframe
@@ -113,10 +116,13 @@ def hemisphere(browser):
     links = browser.find_by_css("a.product-item h3")
     for item in range(len(links)):
         hemisphere = {}
+        print("scraping hemisphere")
+        
         
         # Find Element on Each Loop to Avoid a Stale Element Exception
         browser.find_by_css("a.product-item h3")[item].click()
-        
+        time.sleep(1)
+
         # Find Sample Image Anchor Tag & Extract <href>
         sample_element = browser.links.find_by_text("Sample").first
         hemisphere["img_url"] = sample_element["href"]
@@ -128,23 +134,11 @@ def hemisphere(browser):
         
         # Append Hemisphere Object to List
         hemisphere_image_urls.append(hemisphere)
+        # Navigate Backwards
+        browser.back()   
+ 
 
     return hemisphere_image_urls
-
-    # Helper Function
-#def scrape_hemisphere(html_text):
-    # hemispheres_soup = soup(url, 'html.parser')
-    # try: 
-    #     title_element = hemisphere_soup.find("h2", class_="title").get_text()
-    #     sample_element = hemisphere_soup.find("a", text="Sample").get("href")
-    # except AttributeError:
-    #     title_element = None
-    #     sample_element = None 
-    # hemisphere = {
-    #     "title": title_element,
-    #     "img_url": sample_element
-    # }
-    # return hemisphere
 if __name__ == "__main__":
 
     # If running as script, print scraped data
